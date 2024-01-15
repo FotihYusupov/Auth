@@ -1,0 +1,154 @@
+url = http://localhost:5000
+
+1.Register
+Body orqali json formatda userName, lastLame, password jo'natiladi, 
+agar muvofoqiyatli bo'lsa json formatda token va user role ni qaytaradi.
+
+// Post methodi orqali userName, lastLame va password jo'natiladi
+post(url + /sign-in)
+body: {
+    userName: 'user name',
+    lastLame: 'last name',
+    password: 'password'
+}
+
+// Json formatda token va role qaytadi
+{
+    status: 200, // status
+    token: 'example.token', // token
+    role: 'role' // user role
+}
+
+
+2.Login
+Body orqali userName va password jo'natiladi, agar shu user topilsa server json formatda 
+token va user role qaytaradi.
+
+// Post methodi orqali userName va password jo'natiladi
+post(url + /log-in)
+body: {
+    userName: 'user name',
+    password: 'password'
+}
+
+// Json formatda token va role qaytadi
+{
+    status: 200, // status
+    token: 'example.token', // token
+    role: 'role' // user role
+}
+
+
+3.Userning kartalarini olish uchun /user routiga headers orqali token yuboriladi va server 
+json formatda user va uning kartalarini qaytaradi.
+
+// Get methodi orqali headerdan token jo'natiladi
+get(url + /user)
+headers: {
+    token: 'example.token'
+}
+
+// server json formatda user kartalarini qaytaradi
+{
+    status: 200,
+    data: [
+        {
+            "card_id": "card id",
+            "card_number": card number,
+            "card_date": amal qilish muddati,
+            "card_balance": card balansi,
+            "user": user id
+        }
+    ]
+}
+
+
+4.Yangi karta yaratish headerdan token jo'natiladi va server json formatda yangi karta 
+ma'lumotlarini qaytaradi.
+
+// get methodi orqali /new-card routiga sorov jo'natiladi.
+get(url + /new-card)
+headers: {
+    token: 'token'
+}
+
+// serverdan json formatda karta ma'lumotlari qaytaradi.
+{
+    status: 200,
+    data: {
+        card_id: kart id si,
+        card_number: karta raqami,
+        card_date: amal qilish muddati,
+        card_balance: 0,
+        user: user id,
+    }
+}
+
+
+5.Pul ot'kazish. Body orqali jo'natuvchi karta raqami, otkazma summasi va qabul qiluvchi karta 
+raqami beriladi, agar jarayon muvofoqiyatli tugatilsa server 'success' habarini qaytaradi.
+
+// Post methodi orqali /transfer routiga sorov jonatiladi, 
+json formatda bodydan kerakli malumotlar jo'natiladi.
+post(url + /transfer)
+body: {
+    senderCardNumber: jonatuvchi carta raqami,
+    sum: sum,
+    cardNumber: qabul qiluvchi carta raqami
+}
+
+// jarayon muvofoqiyatli tugatilsa success habari qaytadi
+
+
+6.Karta raqami orqali karta malumotlarini olish.
+
+Get methodi orqali paramsdan karta raqami jonatiladi va serverdan karta malumotlari qaytadi
+
+// Get methodi orqali /card/:cardNumber routiga sorov jo'natiladi va params orqali karta 
+raqami jonatiladi.
+get(url + /card/:cardNumber)
+
+// serverdan kartaning malumotlari jonatiladi
+{
+    status: 200,
+    data: {
+        "card_id": karta id si,
+        "card_number": karta raqami,
+        "card_date": karta muddati,
+        card_balance: kart balansi,
+    }
+}
+
+
+7.Hamma kartalarini olish.
+
+// get methodi orqali /get-cards routiga sorov jonatiladi
+get(url + /get-cards)
+
+// server json formatda barcha kartalarini qaytaradi
+{
+    status: 200,
+    data: [
+        {
+            card_id: karta id si,
+            card_number: karta raqami,
+            card_date: karta muddati,
+            card_balance: karta balansi,
+            user: {
+            user_id: user id,
+            user_name: user name,
+            last_name: last name,
+            },
+        },
+    ]
+}
+
+8.Muddati tugagan kartani qayta tiklash.
+
+// get methodi orqali /restore/:cardNumber routiga sorov jonatiladi.
+get(url + /restore/:cardNumber)
+
+// serverdan json formatda karta malumotlari qaytadi
+{
+    status: 200,
+}

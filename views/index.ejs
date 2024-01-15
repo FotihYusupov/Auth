@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <main>
+        <section class="section">
+            <div class="container">
+                <ul class="list">
+                    <li class="list__item">
+                        <h2 class="list__item-title">1.Register</h2>
+                        <p class="list__item-text">Body orqali json formatda userName, lastLame, password jo'natiladi, 
+                            agar muvofoqiyatli bo'lsa json formatda token va user role ni qaytaradi.</p>
+                        <pre class="header-wrapper">
+// Post methodi orqali userName, lastLame va password jo'natiladi
+
+post(url + /sign-in)
+body: {
+    userName: 'user name',
+    lastLame: 'last name',
+    password: 'password'
+}
+
+// Json formatda token va role qaytadi
+
+{
+    status: 200, // status
+    token: 'example.token', // token
+    role: 'role' // user role
+}
+                        </pre>
+                    </li>
+                    <li class="list__item">
+                        <h2 class="list__item-title">2.Login</h2>
+                        <p class="list__item-text">Body orqali userName va password jo'natiladi, agar shu user topilsa server json formatda 
+                            token va user role qaytaradi.</p>
+                        <pre class="header-wrapper">
+// Post methodi orqali userName va password jo'natiladi
+
+post(url + /log-in)
+body: {
+    userName: 'user name',
+    password: 'password'
+}
+
+// Json formatda token va role qaytadi
+
+{
+    status: 200, // status
+    token: 'example.token', // token
+    role: 'role' // user role
+}
+</pre>            
+                    </li>
+                    <li class="list__item">
+                        <h2 class="list__item-title">3.User kartalarini olish</h2>
+                        <p class="list__item-text">Userning kartalarini olish uchun /user routiga headers orqali token yuboriladi va server 
+                            json formatda user va uning kartalarini qaytaradi.</p>
+                        <pre class="header-wrapper">
+// Get methodi orqali headerdan token jo'natiladi
+
+get(url + /user)
+headers: {
+    token: 'example.token'
+}
+
+// server json formatda user kartalarini qaytaradi
+
+{
+    status: 200,
+    data: [
+        {
+            "card_id": "card id",
+            "card_number": card number,
+            "card_date": amal qilish muddati,
+            "card_balance": card balansi,
+            "user": user id
+        }
+    ]
+}
+</pre>            
+                    </li>
+                    <li class="list__item">
+                        <h2 class="list__item-title">4.Yangi karta yaratish</h2>
+                        <p class="list__item-text">Yangi karta yaratish uchun headerdan token jo'natiladi va server json formatda yangi karta 
+                            ma'lumotlarini qaytaradi.</p>
+                        <pre class="header-wrapper">
+// get methodi orqali /new-card routiga sorov jo'natiladi.
+
+get(url + /new-card)
+headers: {
+    token: 'token'
+}
+
+// serverdan json formatda karta ma'lumotlari qaytaradi.
+
+{
+    status: 200,
+    data: {
+        card_id: kart id si,
+        card_number: karta raqami,
+        card_date: amal qilish muddati,
+        card_balance: 0,
+        user: user id,
+    }
+}
+</pre>            
+                    </li>
+                    <li class="list__item">
+                        <h2 class="list__item-title">4.Yangi karta yaratish</h2>
+                        <p class="list__item-text">Yangi karta yaratish uchun headerdan token jo'natiladi va server json formatda yangi karta 
+                            ma'lumotlarini qaytaradi.</p>
+                        <pre class="header-wrapper">
+// get methodi orqali /new-card routiga sorov jo'natiladi.
+
+get(url + /new-card)
+headers: {
+    token: 'token'
+}
+
+// serverdan json formatda karta ma'lumotlari qaytaradi.
+
+{
+    status: 200,
+    data: {
+        card_id: kart id si,
+        card_number: karta raqami,
+        card_date: amal qilish muddati,
+        card_balance: 0,
+        user: user id,
+    }
+}
+</pre>            
+                    </li>
+                    <li class="list__item">
+                        <h2 class="list__item-title">5.Kartadan kartaga pul o'tkazish</h2>
+                        <p class="list__item-text">Body orqali jo'natuvchi karta raqami, otkazma summasi va qabul qiluvchi karta 
+                            raqami beriladi, agar jarayon muvofoqiyatli tugatilsa server 'success' habarini qaytaradi.</p>
+                        <pre class="header-wrapper">
+// Post methodi orqali /transfer routiga sorov jonatiladi,
+json formatda bodydan kerakli malumotlar jo'natiladi.
+
+post(url + /transfer)
+body: {
+    senderCardNumber: jonatuvchi carta raqami,
+    sum: sum,
+    cardNumber: qabul qiluvchi carta raqami
+}
+
+// jarayon muvofoqiyatli tugatilsa success habari qaytadi                            
+
+</pre>            
+                    </li>
+                    <li class="list__item">
+                        <h2 class="list__item-title">6.Karta raqami orqali karta malumotlarini olish</h2>
+                        <p class="list__item-text">Get methodi orqali paramsdan karta raqami jonatiladi va serverdan karta malumotlari qaytadi.</p>
+                        <pre class="header-wrapper">
+// Get methodi orqali /card/:cardNumber routiga sorov jo'natiladi va params orqali 
+karta raqami jonatiladi.
+
+get(url + /card/:cardNumber)
+
+// serverdan kartaning malumotlari jonatiladi
+
+{
+    status: 200,
+    data: {
+        "card_id": karta id,
+        "card_number": karta raqami,
+        "card_date": karta muddati,
+        card_balance: kart balansi,
+    }
+}
+</pre>            
+                    </li>
+                    <li class="list__item">
+                        <h2 class="list__item-title">7.Hamma kartalarini olish</h2>
+                        <pre class="header-wrapper">
+// get methodi orqali /get-cards routiga sorov jonatiladi
+
+get(url + /get-cards)
+
+// server json formatda barcha kartalarini qaytaradi
+
+{
+    status: 200,
+    data: [
+        {
+            card_id: karta id si,
+            card_number: karta raqami,
+            card_date: karta muddati,
+            card_balance: karta balansi,
+            user: {
+                user_id: user id,
+                user_name: user name,
+                last_name: last name,
+            },
+        },
+    ]
+}
+</pre>            
+                    </li>
+                    <li class="list__item">
+                        <h2 class="list__item-title">8.Muddati tugagan kartani qayta tiklash</h2>
+                        <pre class="header-wrapper">
+// get methodi orqali /restore/:cardNumber routiga sorov jonatiladi.
+
+get(url + /restore/:cardNumber)
+
+// serverdan json formatda karta malumotlari qaytadi
+
+{
+    status: 200,
+}
+</pre>            
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
