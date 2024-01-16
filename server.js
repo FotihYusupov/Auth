@@ -26,7 +26,7 @@ app.use(express.static('public'));
 app.use(router);
 
 app.get('/', (req, res) => {
-  res.render('index', { title: 'title' });
+  res.render('index', { title: 'Server is run' });
 });
 
 app.listen(process.env.PORT || 5000, () => console.log('server is run'));

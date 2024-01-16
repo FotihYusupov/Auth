@@ -39,6 +39,19 @@ exports.login = async (req, res) => {
   }
 };
 
+exports.getMe = async (req, res) => {
+  try {
+    const { userId } = req.headers;
+    const findUser = await Users.findById(userId);
+    if (findUser) {
+      return res.status(200).json(findUser);
+    }
+    return res.json('user not found');
+  } catch (err) {
+    return res.status(500).send('Interval server error');
+  }
+};
+
 exports.getUserCards = async (req, res) => {
   try {
     const { userId } = req.headers;

@@ -135,9 +135,9 @@ get(url + /get-cards)
             card_date: karta muddati,
             card_balance: karta balansi,
             user: {
-            user_id: user id,
-            user_name: user name,
-            last_name: last name,
+                user_id: user id,
+                user_name: user name,
+                last_name: last name,
             },
         },
     ]

@@ -10,6 +10,7 @@ const router = Router();
 router.post('/sign-in', userController.register);
 router.post('/log-in', userController.login);
 router.get('/user', authMiddleware, userController.getUserCards);
+router.get('/get-me', authMiddleware, userController.getMe);
 
 // cards routes
 router.get('/new-card', authMiddleware, cardController.addCard);
